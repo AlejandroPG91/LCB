@@ -81,5 +81,7 @@
                     <% } %>
                 <% } %>
         </div>
+        
+        <a href='adminView.jsp'>Si es usted administrador, pulse aquí</a>
     </body>
 </html>
