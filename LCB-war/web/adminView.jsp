@@ -35,7 +35,7 @@
         
         <h2>Modificar Campo de libro</h2>
         
-        <form action='FrontControllerServlet'>
+        <%--<form action='FrontControllerServlet'>
             <table>
                 <% for(int i=0; i<10; i++){ %>
                     <tr>
@@ -56,7 +56,7 @@
         
         
         
-        <%--<form action='FrontControllerServlet'>
+        <form action='FrontControllerServlet'>
             Inserte el ISBN del libro que quiere modificar: <input type='text' name='isbn3'><br>
             Que campo que desea cambiar: <br>
             <input type='Text' name='title1' value='Título'><br>
@@ -73,7 +73,7 @@
             
             <input type='hidden' name='command' value='ModifyInDataBaseCommand'>
             <input type='submit' name='button' value='Modificar'><br>
-        </form>--%>
+        </form>
 
     </body>
 </html>
