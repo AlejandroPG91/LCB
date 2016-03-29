@@ -36,18 +36,44 @@
         <h2>Modificar Campo de libro</h2>
         
         <form action='FrontControllerServlet'>
-            Modifique el campo que desea cambiar: 
-            <%--<input type='Submit' name='title' value='Título'>
-            <input type='Submit' name='author' value='Autor'>
-            <input type='Submit' name='publisher' value='Editorial'>
-            <input type='Submit' name='publishYear' value='Año de Publicación'>
-            <input type='Submit' name='price' value='Precio'>
-            <input type='Submit' name='isbn' value='ISBN'>
-            <input type='Submit' name='copy' value='Numero de ejemplares'>--%>
+            <table>
+                <% for(int i=0; i<10; i++){ %>
+                    <tr>
+                        <td>Libro: </td>
+                        <td>Autor: </td>
+                        <td>Editorial:</td>
+                        <td>Año de publicación:</td>
+                        <td>Precio:</td>
+                        <td>Nº de ejemplares:</td>
+                        <td>ISBN:</td>
+                        <td><input type='submit' name='eliminar' value='Eliminar'></td>
+                    </tr>
+                <%}%>
+            </table>
+            <input type='hidden' name='command' value='ModifyInDataBaseCommand'>
+        </form>--%>
+        
+        
+        
+        
+        <%--<form action='FrontControllerServlet'>
+            Inserte el ISBN del libro que quiere modificar: <input type='text' name='isbn3'><br>
+            Que campo que desea cambiar: <br>
+            <input type='Text' name='title1' value='Título'><br>
             
-            <input type='hidden' name='command' value='ModifyFromDataBaseCommand'>
+            <input type='Text' name='author1' value='Autor'><br>
+            
+            <input type='Text' name='publisher1' value='Editorial'><br>
+            
+            <input type='Text' name='publishYear1' value='Año de Publicación'><br>
+            
+            <input type='Text' name='price1' value='Precio'><br>
+            
+            <input type='Text' name='copy1' value='Numero de ejemplares'><br>
+            
+            <input type='hidden' name='command' value='ModifyInDataBaseCommand'>
             <input type='submit' name='button' value='Modificar'><br>
-        </form>
+        </form>--%>
 
     </body>
 </html>

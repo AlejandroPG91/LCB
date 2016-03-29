@@ -41,9 +41,11 @@ public class AddToDataBaseCommand extends FrontCommand {
                 if (find == null){
                     DBConnection.create(book);                    
                 }
-                forward("/indexView.jsp");
                 
             }
+            forward("/indexView.jsp");
+            
+            
         } catch (NamingException | ServletException | IOException ex) {
             Logger.getLogger(AddToDataBaseCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
