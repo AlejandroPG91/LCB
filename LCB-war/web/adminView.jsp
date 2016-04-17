@@ -4,6 +4,7 @@
     Author     : Famïa
 --%>
 
+<%@page import="entity.Discount"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Book"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -97,6 +98,22 @@
 
                             <% } %>
                         <% } %>
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class='col-lg-10 col-lg-offset-1'>
+                    <h2>Añadir Oferta Nueva</h2>   
+                        <form action='FrontControllerServlet' class='form-horizontal' role='form'>
+                            <label for='discountName'>Nombre del descuento:</label> 
+                            <input class='form-control' type='text' name='discountName'><br>
+                            <label for='discount'>Descuento (en porcentaje):</label> 
+                            <input class='form-control' type='text' name='discount'><br>
+                        
+                            <input type='hidden' value='CreateDiscountDB' name='command'>
+                            <button type='submit'  class='btn btn-danger' name='button' value='Añadir Descuento'>Añadir Descuento</button><br>                                    
+                        </form>
+                    
                 </div>
             </div>
         </div>

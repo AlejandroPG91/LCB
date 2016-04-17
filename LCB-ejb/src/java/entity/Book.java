@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author noe_s_000
+ * @author Famïa
  */
 @Entity
 @Table(name = "BOOK")
@@ -199,16 +199,15 @@ public class Book implements Serializable {
         }
         return true;
     }
-
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
+    
     @Override
     public String toString() {
         return "entity.Book[ isbn=" + isbn + " ]";
     }
-    
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
-    }
-
     
 }

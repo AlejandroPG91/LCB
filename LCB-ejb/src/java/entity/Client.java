@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author hmaci
+ * @author Famïa
  */
 @Entity
 @Table(name = "CLIENT")
@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Client.findByPassword", query = "SELECT c FROM Client c WHERE c.password = :password"),
     @NamedQuery(name = "Client.findByIsadmin", query = "SELECT c FROM Client c WHERE c.isadmin = :isadmin")})
 public class Client implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Size(max = 50)
     @Column(name = "NAME")
