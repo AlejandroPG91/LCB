@@ -6,6 +6,7 @@
 package util;
 
 import entity.Book;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateful;
@@ -15,7 +16,7 @@ import javax.ejb.Stateful;
  * @author maxi
  */
 @Stateful
-public class ShoppingCart implements ShoppingCartLocal {
+public class ShoppingCart implements ShoppingCartLocal, Serializable {
 
     private List<Book> bookList;
     private double cost;

@@ -6,20 +6,24 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author hmaci
+ * @author Soraya
  */
 @Entity
 @Table(name = "CLIENT")
@@ -34,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Client.findByPassword", query = "SELECT c FROM Client c WHERE c.password = :password"),
     @NamedQuery(name = "Client.findByIsadmin", query = "SELECT c FROM Client c WHERE c.isadmin = :isadmin")})
 public class Client implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Size(max = 50)
     @Column(name = "NAME")
@@ -60,6 +65,8 @@ public class Client implements Serializable {
     private String password;
     @Column(name = "ISADMIN")
     private Integer isadmin;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mail")
+    private Collection<Shopping> shoppingCollection;
 
     public Client() {
     }
@@ -127,6 +134,15 @@ public class Client implements Serializable {
 
     public void setIsadmin(Integer isadmin) {
         this.isadmin = isadmin;
+    }
+
+    @XmlTransient
+    public Collection<Shopping> getShoppingCollection() {
+        return shoppingCollection;
+    }
+
+    public void setShoppingCollection(Collection<Shopping> shoppingCollection) {
+        this.shoppingCollection = shoppingCollection;
     }
 
     @Override
