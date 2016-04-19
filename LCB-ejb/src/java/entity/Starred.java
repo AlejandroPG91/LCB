@@ -6,7 +6,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,13 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Soraya
  */
 @Entity
-@Table(name = "SHOPPING")
+@Table(name = "STARRED")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Shopping.findAll", query = "SELECT s FROM Shopping s"),
-    @NamedQuery(name = "Shopping.findById", query = "SELECT s FROM Shopping s WHERE s.id = :id"),
-    @NamedQuery(name = "Shopping.findByDate", query = "SELECT s FROM Shopping s WHERE s.date = :date")})
-public class Shopping implements Serializable {
+    @NamedQuery(name = "Starred.findAll", query = "SELECT s FROM Starred s"),
+    @NamedQuery(name = "Starred.findById", query = "SELECT s FROM Starred s WHERE s.id = :id")})
+public class Starred implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,29 +41,23 @@ public class Shopping implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Date date;
-    @Basic(optional = false)
-    @NotNull
     @Lob
-    @Column(name = "SHOPPING")
-    private Serializable shopping;
+    @Column(name = "STARRED")
+    private Serializable starred;
     @JoinColumn(name = "MAIL", referencedColumnName = "MAIL")
     @ManyToOne(optional = false)
     private Client mail;
 
-    public Shopping() {
+    public Starred() {
     }
 
-    public Shopping(Integer id) {
+    public Starred(Integer id) {
         this.id = id;
     }
 
-    public Shopping(Integer id, Date date, Serializable shopping) {
+    public Starred(Integer id, Serializable starred) {
         this.id = id;
-        this.date = date;
-        this.shopping = shopping;
+        this.starred = starred;
     }
 
     public Integer getId() {
@@ -78,20 +68,12 @@ public class Shopping implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Serializable getStarred() {
+        return starred;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Serializable getShopping() {
-        return shopping;
-    }
-
-    public void setShopping(Serializable shopping) {
-        this.shopping = shopping;
+    public void setStarred(Serializable starred) {
+        this.starred = starred;
     }
 
     public Client getMail() {
@@ -112,10 +94,10 @@ public class Shopping implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Shopping)) {
+        if (!(object instanceof Starred)) {
             return false;
         }
-        Shopping other = (Shopping) object;
+        Starred other = (Starred) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -124,7 +106,7 @@ public class Shopping implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Shopping[ id=" + id + " ]";
+        return "entity.Starred[ id=" + id + " ]";
     }
     
 }

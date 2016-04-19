@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Client.findByIsadmin", query = "SELECT c FROM Client c WHERE c.isadmin = :isadmin")})
 public class Client implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mail")
+    private Collection<Starred> starredCollection;
+
     private static final long serialVersionUID = 1L;
     @Size(max = 50)
     @Column(name = "NAME")
@@ -168,6 +171,15 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "entity.Client[ mail=" + mail + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Starred> getStarredCollection() {
+        return starredCollection;
+    }
+
+    public void setStarredCollection(Collection<Starred> starredCollection) {
+        this.starredCollection = starredCollection;
     }
     
 }

@@ -19,22 +19,35 @@
         <title>Ver Compra</title>
     </head>
     <body>
-        <% Client client = (Client)session.getAttribute("client"); %>
-        <% if (client != null) { %>
-            <div class='col-lg-4'>
-            <% Shopping shopping = (Shopping) session.getAttribute("shopping");
-                ShoppingCart cart = (ShoppingCart) shopping.getShopping();
-                for (Book book: cart.getCart()){ %>
-                    <div class='book'>
-                        <img src="covers/<% out.print(book.getTitle()+".jpg"); %>" onerror="this.src='images/inf.gif'" class="img-thumbnail img-responsive">
-                        <p> <% out.print(book.getTitle()); %> </p>
-                        <p> <% out.print(book.getAuthor()); %> </p>
-                        <p> <% out.print(book.getPrice()); %> €</p>
-                    </div>
-                <% } %>
-                Precio total: <% out.print(cart.getCost()); %>
+        <div class='container-fluid'>
+            <div class='row'>
+                <div class='col-lg-1 col-md-offset-2'>
+                    <a href='FrontControllerServlet'><img src='images/logo.jpg' class="img-responsive"></a>
+                </div>
+                <div class='col-lg-8'>
+                    <h1><a href='FrontControllerServlet'> Leaky Cauldron Bookstore</a></h1>
+                </div>
             </div>
-        <% } %>
+            <div class='container row-fluid center-block'>
+                <% Client client = (Client)session.getAttribute("client"); %>
+                <% if (client != null) { %>
+                    <% Shopping shopping = (Shopping) session.getAttribute("shopping");
+                        ShoppingCart cart = (ShoppingCart) shopping.getShopping();
+                        for (Book book: cart.getCart()){ %>
+                            <div class='col-lg-4'>
+                                <div class='book'>
+                                    <img src="covers/<% out.print(book.getTitle()+".jpg"); %>" onerror="this.src='images/inf.gif'" class="img-thumbnail img-responsive">
+                                    <p> <% out.print(book.getTitle()); %> </p>
+                                    <p> <% out.print(book.getAuthor()); %> </p>
+                                    <p> <% out.print(book.getPrice()); %> €</p>
+                                </div>
+                            </div>
+                        <% } %>
+                        Precio total: <% out.print(cart.getCost()); %>
+                    
+                <% } %>
+            </div>
+        </div>
         
     </body>
 </html>
