@@ -116,6 +116,26 @@
                     
                 </div>
             </div>
+            <div class='row'>
+                <div class='col-lg-10 col-lg-offset-1'>
+                    <h2>Eliminar Descuento</h2>
+                    <% ArrayList<Discount> discounts = (ArrayList) session.getAttribute("discounts"); 
+                        if (discounts !=  null && !discounts.isEmpty()) {
+                            for (Discount discount : discounts){
+                    %>
+
+                        <p> <b>Nombre Descuento</b> <% out.print(discount.getDiscountname()); %>.
+                        <b>Descuento:</b> <% out.print(discount.getDiscount()); %>.
+                        <form action='FrontControllerServlet' class='form-horizontal' role='form'>
+                            <input type='hidden' value='RemoveDiscountDB' name='command'>
+                            <input type='hidden' value='<% out.print(discount.getDiscountname());%>' name='discountName2'>
+                            <button type='submit'  class='btn btn-danger'>Eliminar</button>
+                        </form>
+
+                            <% } %>
+                        <% } %>
+                </div>
+            </div>
         </div>
 
     </body>

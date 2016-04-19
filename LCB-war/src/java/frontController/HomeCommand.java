@@ -6,7 +6,9 @@
 package frontController;
 
 import controller.BookFacadeLocal;
+import controller.DiscountFacadeLocal;
 import entity.Book;
+import entity.Discount;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class HomeCommand extends FrontCommand{
         try {
             BookFacadeLocal books;
             books = InitialContext.doLookup("java:global/LCB/LCB-ejb/BookFacade");
+            DiscountFacadeLocal discounts = InitialContext.doLookup("java:global/LCB/LCB-ejb/DiscountFacade");
             HttpSession session = request.getSession(true);
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
             if (cart == null) {
@@ -47,6 +50,13 @@ public class HomeCommand extends FrontCommand{
             }
             //request.setAttribute("books", list);
             session.setAttribute("books", list);
+            
+            List<Discount> discountList = discounts.findAll();
+            ArrayList<Discount> lista= new ArrayList<>();
+            for (Discount discount : discountList) {
+                lista.add(discount);
+            }
+            session.setAttribute("discount", lista);
             
             forward("/indexView.jsp");
             } catch (ServletException | IOException | NamingException ex) {
