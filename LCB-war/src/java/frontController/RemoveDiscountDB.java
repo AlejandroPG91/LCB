@@ -22,14 +22,14 @@ public class RemoveDiscountDB extends FrontCommand{
 
     @Override
     public void process() {
-        DiscountFacadeLocal DBConnection;
+    
         try {
-            DBConnection = InitialContext.doLookup("java:global/LCB/LCB-ejb/DiscountFacade");
+            DiscountFacadeLocal DBConnection = InitialContext.doLookup("java:global/LCB/LCB-ejb/DiscountFacade");
             Discount discounts;
             
             String discountName = request.getParameter("discountName2");
             
-            discounts = DBConnection.find(Integer.parseInt(discountName));
+            discounts = DBConnection.find(discountName);
             
             if (discounts != null){
                 DBConnection.remove(discounts);

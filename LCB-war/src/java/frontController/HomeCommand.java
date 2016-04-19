@@ -56,7 +56,7 @@ public class HomeCommand extends FrontCommand{
             for (Discount discount : discountList) {
                 lista.add(discount);
             }
-            session.setAttribute("discount", lista);
+            session.setAttribute("discounts", lista);
             
             forward("/indexView.jsp");
             } catch (ServletException | IOException | NamingException ex) {
