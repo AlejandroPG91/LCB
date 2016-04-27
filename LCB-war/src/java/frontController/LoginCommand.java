@@ -38,7 +38,7 @@ public class LoginCommand extends FrontCommand {
                 //session.setAttribute("session", "Error al autentificarse.");
             }
             request.setAttribute("clients", list);
-            forward("/loginView.jsp");
+            forward("/booksView.jsp");
         } catch (NamingException ex) {
             System.out.println("NOPE");
         } catch (ServletException | IOException ex) {
