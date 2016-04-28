@@ -25,18 +25,30 @@
                 <% Client client = (Client)session.getAttribute("client");
                 if (client != null) {
                         List<Book> bookList = (List<Book>) session.getAttribute("starredBooks");
-                        for (Book book : bookList){%>
-                            <div class='col-lg-4'>
-                                <div class='book'>
-                                    <img src="covers/<% out.print(book.getTitle()+".jpg"); %>" onerror="this.src='images/inf.gif'" class="img-thumbnail img-responsive">
-                                    <p> <% out.print(book.getTitle()); %> </p>
-                                    <p> <% out.print(book.getAuthor()); %> </p>
-                                    <p> <% out.print(book.getPrice()); %> €</p>
+                        if(bookList != null && !bookList.isEmpty()){
+                            for (Book book : bookList){%>
+                                <div class='col-lg-4'>
+                                    <div class='book'>
+                                        <img src="covers/<% out.print(book.getTitle()+".jpg"); %>" onerror="this.src='images/inf.gif'" class="img-thumbnail img-responsive">
+                                        <p> <% out.print(book.getTitle()); %> </p>
+                                        <p> <% out.print(book.getAuthor()); %> </p>
+                                        <p> <% out.print(book.getPrice()); %> €</p>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        <% } 
-                }%>
+
+                            <% } %>
+                            <% }else if(bookList == null){ %>
+                                <jsp:forward page="errorView.jsp"> 
+                                <jsp:param name="error" value="Error al obtener los libros favoritos." /> 
+                                </jsp:forward> 
+                            <% }else if(bookList.isEmpty()){ %>
+                                <br><h2>No has añadido libros a la lista de favoritos.</h2>
+                            <% } %>
+               <% }else{ %>
+                    <jsp:forward page="errorView.jsp"> 
+                    <jsp:param name="error" value="Inicie sesión para ver sus compras." /> 
+                    </jsp:forward> 
+               <% } %>
             </div>
         </div>
         

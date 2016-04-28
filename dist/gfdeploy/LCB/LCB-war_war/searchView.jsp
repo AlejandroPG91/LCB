@@ -70,7 +70,9 @@
                 </div>
                         <% } %>
                     <% } else {%>
-                    <p><h3>Sin resultados :(</h3></p>
+                            <jsp:forward page="errorView.jsp"> 
+                            <jsp:param name="error" value="Sin resultados." /> 
+                            </jsp:forward> 
                     <% } %>
             </div>
         </div>

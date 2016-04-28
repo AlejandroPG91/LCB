@@ -22,7 +22,7 @@
         <% if (client != null) { %>
             
                 <% List <Integer> idList = (ArrayList) session.getAttribute("idShopping");
-                if (idList !=  null && !idList.isEmpty()) { 
+                if (idList != null && !idList.isEmpty()) { 
                     int i=0;
                     for (Integer id : idList) {%>
                         <form action='FrontControllerServlet' class='form-horizontal' role='form'>
@@ -31,8 +31,18 @@
                         <button type='submit' class='btn btn-default'>Ver Compra</button>
                         </form>
                     <%}%>
+                <% }else if(idList == null){ %>
+                    <jsp:forward page="errorView.jsp"> 
+                    <jsp:param name="error" value="Error al obtener las compras." /> 
+                    </jsp:forward> 
+                <% }else if(idList.isEmpty()){ %>
+                    <h2>No hay compras asociadas a su cuenta.</h2>
                 <% } %>
             
+        <% }else{ %>
+            <jsp:forward page="errorView.jsp"> 
+            <jsp:param name="error" value="Inicie sesión para ver sus compras." /> 
+            </jsp:forward> 
         <% } %>
         <script src='js/jquery.js'></script>
         <script src='js/bootstrap.min.js'></script>

@@ -33,11 +33,17 @@
                 </div>
                 <div class='col-lg-1 pull-right'>
                     <% ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); %>
+                    <% if(cart != null){ %>
                     <p> Carrito: <% out.print(cart.getCart().size()); %> productos</p>
                     <form action='FrontControllerServlet' class='form-horizontal' role='form'>
                         <input type='hidden' value='ShowCartCommand' name='command'>
                         <button type='submit' class='btn btn-default'>Ver Carrito</button>
                     </form>
+                    <% }else{ %>
+                        <jsp:forward page="errorView.jsp"> 
+                        <jsp:param name="error" value="Error al obtener el carrito." /> 
+                        </jsp:forward> 
+                    <% } %>
                 </div>
             </div>
             <div class='container row-fluid center-block'>

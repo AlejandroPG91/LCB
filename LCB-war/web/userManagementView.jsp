@@ -35,37 +35,48 @@
             <br>
             <div class='container row-fluid center-block'>
                 <h1>Usuarios</h1>
-                <% ArrayList<Client> clients = (ArrayList) session.getAttribute("allClients");
-                    if (clients !=  null && !clients.isEmpty()) {
-                        for (Client client : clients){
-                %>
-                <div class='col-lg-4'>
-                    <div class='client'>
-                        <p>Correo: <% out.print(client.getMail()); %> </p>
-                        <p>Nombre: <%out.print(client.getName()); %> </p>
-                        <p> Tipo de cuenta: 
-                            <% 
-                                if(client.getIsadmin() == 0){
-                                    out.print("Usuario normal");
-                                }else{
-                                    out.print("Administrador");    
-                                }
-                            %>
-                        </p>
-                        <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
-                            <input type='hidden' value='UserManagementCommand' name='command'>
-                            <input type='hidden' value='<% out.print(client.getMail());%>' name='clientEmail'>
-                            <button type='submit' class='btn btn-danger'>Editar usuario</button>
-                        </form>
-                        <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
-                            <input type='hidden' value='DeleteUserCommand' name='command'>
-                            <input type='hidden' value='<% out.print(client.getMail());%>' name='deleteClientEmail'>
-                            <button type='submit' class='btn btn-danger'>Eliminar usuario</button>
-                        </form><br>
+                <% Client sessionClient = (Client) session.getAttribute("client"); %>
+                <% if(sessionClient != null && sessionClient.getIsadmin() == 1){ %>
+                    <% ArrayList<Client> clients = (ArrayList) session.getAttribute("allClients");
+                        if (clients !=  null && !clients.isEmpty()) {
+                            for (Client client : clients){
+                    %>
+                    <div class='col-lg-4'>
+                        <div class='client'>
+                            <p>Correo: <% out.print(client.getMail()); %> </p>
+                            <p>Nombre: <%out.print(client.getName()); %> </p>
+                            <p> Tipo de cuenta: 
+                                <% 
+                                    if(client.getIsadmin() == 0){
+                                        out.print("Usuario normal");
+                                    }else{
+                                        out.print("Administrador");    
+                                    }
+                                %>
+                            </p>
+                            <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
+                                <input type='hidden' value='UserManagementCommand' name='command'>
+                                <input type='hidden' value='<% out.print(client.getMail());%>' name='clientEmail'>
+                                <button type='submit' class='btn btn-danger'>Editar usuario</button>
+                            </form>
+                            <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
+                                <input type='hidden' value='DeleteUserCommand' name='command'>
+                                <input type='hidden' value='<% out.print(client.getMail());%>' name='deleteClientEmail'>
+                                <button type='submit' class='btn btn-danger'>Eliminar usuario</button>
+                            </form><br>
+                        </div>
                     </div>
-                </div>
-                <% } %>
                     <% } %>
+                        <% } %>
+            <% }else if(sessionClient == null){ %>
+                <jsp:forward page="errorView.jsp"> 
+                <jsp:param name="error" value="Inicie sesión como administrador para acceder a esta página." /> 
+                </jsp:forward> 
+            <% }else if(sessionClient.getIsadmin() == 0){ %>
+                <jsp:forward page="errorView.jsp"> 
+                <jsp:param name="error" value="Inicie sesión como administrador para acceder a esta página." /> 
+                </jsp:forward> 
+            <% } %>
             </div>
         </div>
         <script src='js/jquery.js'></script>

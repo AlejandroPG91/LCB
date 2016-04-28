@@ -31,8 +31,9 @@
             <div class='container row-fluid center-block'>
                 <% Client client = (Client)session.getAttribute("client"); %>
                 <% if (client != null) { %>
-                    <% Shopping shopping = (Shopping) session.getAttribute("shopping");
-                        ShoppingCart cart = (ShoppingCart) shopping.getShopping();
+                    <% Shopping shopping = (Shopping) session.getAttribute("shopping"); %>
+                    <% if(shopping != null){ %>
+                        <% ShoppingCart cart = (ShoppingCart) shopping.getShopping();
                         for (Book book: cart.getCart()){ %>
                             <div class='col-lg-4'>
                                 <div class='book'>
@@ -42,9 +43,18 @@
                                     <p> <% out.print(book.getDiscountPrice()); %> €</p>
                                 </div>
                             </div>
+
                         <% } %>
                         Precio total: <% out.print(cart.getCost()); %>
-                    
+                    <% }else{ %>
+                            <jsp:forward page="errorView.jsp"> 
+                            <jsp:param name="error" value="Error al obtener información de la compra." /> 
+                            </jsp:forward> 
+                    <% } %>
+                <% }else{ %>
+                    <jsp:forward page="errorView.jsp"> 
+                    <jsp:param name="error" value="Inicie sesión para ver sus compras." /> 
+                    </jsp:forward> 
                 <% } %>
             </div>
         </div>
