@@ -36,12 +36,12 @@
             <div class='row'>
                 <div class='col-lg-12 center-block'>
                     <% 
-                        if(request.getParameter("error") == null){ %>
+                        if(request.getAttribute("error") == null){ %>
                             <div class='center-block alert alert-warning col-lg-4' role="alert">
                                 <p>No se ha podido obtener el mensaje de error.</p>
                             </div>    
                         <% }else{ 
-                            String error = request.getParameter("error").toString(); %>
+                            String error = request.getAttribute("error").toString(); %>
                     
                         <% if(error != null && (!error.isEmpty() || error.length() > 0)){ %>
                             <div class='center-block alert alert-danger col-lg-4' role="alert">

@@ -3,6 +3,7 @@ package frontController;
 import controller.BookFacadeLocal;
 import entity.Book;
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -24,24 +25,18 @@ public class AddToCartCommand extends FrontCommand{
         try {
             BookFacadeLocal books;
             HttpSession session = request.getSession();
+            //Map<String, String[]> map  = request.getParameterMap();
             ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
             Integer isbn = Integer.parseInt(request.getParameter("bookIsbn"));
             String inputValue = request.getParameter("nCopies");
+            
             int nCopies = 0;
-            try  
-            {  
-              nCopies = Integer.parseInt(inputValue);  
+            try{  
+                nCopies = Integer.parseInt(inputValue);  
+            }catch(NumberFormatException nfe){  
+                nCopies = 1;  
             }  
-            catch(NumberFormatException nfe)  
-            {  
-              nCopies = 1;  
-            }  
-//            Integer isbn = Integer.parseInt(request.getParameter("bookIsbn"));
             books = InitialContext.doLookup("java:global/LCB/LCB-ejb/BookFacade");
-            //Tratarlo como HashMap<Book, Integer>, donde integer es el numero
-            //de copias/contador de los libros que se pueden añadir al carrito
-            //cuando llegue a 0, cambiar el botón por reservar, o que no siga
-            //metiendo mas en el carrito
 
             Book bookDB = books.find(isbn);
             if(bookDB != null){
@@ -67,14 +62,6 @@ public class AddToCartCommand extends FrontCommand{
                     }
                 }
             }
-            /*
-            List<Book> bookList = books.findAll();
-            for (Book book : bookList) {
-                if (book.getIsbn().equals(isbn)) {
-                    cart.addBoookToCart(book);
-                    //session.setAttribute("cart", cart);
-                }
-            }*/
             forward("/indexView.jsp");
         } catch (ServletException | IOException | NamingException ex) {
             Logger.getLogger(AddToCartCommand.class.getName()).log(Level.SEVERE, null, ex);

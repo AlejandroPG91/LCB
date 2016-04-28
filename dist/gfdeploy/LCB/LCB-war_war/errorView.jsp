@@ -35,17 +35,28 @@
             </div>
             <div class='row'>
                 <div class='col-lg-12 center-block'>
-                    <% String error = request.getParameter("error").toString(); %>
-                    <% if(error != null && (!error.isEmpty() || error.length() > 0)){ %>
-                    <br>
-                    <div class='center-block alert alert-danger col-lg-4' role="alert">
-                        
-                        <p><% out.print(error);%></p>
-                        <!-- <% //session.setAttribute("error", ""); %> -->
+                    <% 
+                        if(request.getParameter("error") == null){ %>
+                            <div class='center-block alert alert-warning col-lg-4' role="alert">
+                                <p>No se ha podido obtener el mensaje de error.</p>
+                            </div>    
+                        <% }else{ 
+                            String error = request.getParameter("error").toString(); %>
+                    
+                        <% if(error != null && (!error.isEmpty() || error.length() > 0)){ %>
+                            <div class='center-block alert alert-danger col-lg-4' role="alert">
+                                <p><% out.print(error);%></p>
+                            </div>
+                        <% }else if(error == null){ %>
+                            <div class='center-block alert alert-success col-lg-4' role="alert">
+                                <p>No hay errores></p>
+                            </div>
                         <% }else{ %>
-                            <p>No hay errores</p>
+                            <div class='center-block alert alert-success col-lg-4' role="alert">
+                                <p>No hay errores</p>
+                            </div>
                         <% } %>
-                    </div>  
+                <% } %>
                 </div>
             </div>
         </div>
