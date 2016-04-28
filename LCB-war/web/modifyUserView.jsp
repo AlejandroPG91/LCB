@@ -34,35 +34,48 @@
             </div>
             <br>
             <div class='container row-fluid center-block'>
-                <h1>Usuarios</h1>
-                <% ArrayList<Client> clients = (ArrayList) session.getAttribute("modClient");
-                    if (clients !=  null && !clients.isEmpty()) {
-                        for (Client client : clients){
-                %>
-                <div class='col-lg-4'>
-                    <h1>Usuario: <% out.print(client.getMail()); %></h1>
-                    
-                    <div class='client'>
-                        <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
-                            <input type='hidden' value='ModifyUserCommand' name='command'>
-                            <label for="name">Nombre: </label>
-                            <input class='form-control' type='text' name='name'>
-                            <label for="lastname">Apellidos: </label>
-                            <input class='form-control' type='text' name='lastname'>
-                            <label for="password">Contraseña: </label>
-                            <input class='form-control' type='text' name='password'>
-                            <label for="address1">Dirección 1: </label>
-                            <input class='form-control' type='text' name='address1'>
-                            <label for="address2">Dirección 2: </label>
-                            <input class='form-control' type='text' name='address2'>
-                            <label for="admin">Administrador: </label>
-                            <input class='form-control' type='text' name='admin'><br>
-                            <button type='submit' class='btn btn-danger'>Modificar usuario</button>
-                        </form><br>
-                    </div>
-                </div>
+                <% Client sessionClient = (Client) session.getAttribute("client"); %>
+                <% if(sessionClient != null){ %>
+                    <% if(sessionClient.getIsadmin() == 1){ %>
+                        <h1>Usuarios</h1>
+                        <% ArrayList<Client> clients = (ArrayList) session.getAttribute("modClient");
+                            if (clients !=  null && !clients.isEmpty()) {
+                                for (Client client : clients){
+                        %>
+                        <div class='col-lg-4'>
+                            <h1>Usuario: <% out.print(client.getMail()); %></h1>
+
+                            <div class='client'>
+                                <form action='FrontControllerServlet' method='post' class='form-horizontal' role='form'>
+                                    <input type='hidden' value='ModifyUserCommand' name='command'>
+                                    <label for="name">Nombre: </label>
+                                    <input class='form-control' type='text' name='name'>
+                                    <label for="lastname">Apellidos: </label>
+                                    <input class='form-control' type='text' name='lastname'>
+                                    <label for="password">Contraseña: </label>
+                                    <input class='form-control' type='text' name='password'>
+                                    <label for="address1">Dirección 1: </label>
+                                    <input class='form-control' type='text' name='address1'>
+                                    <label for="address2">Dirección 2: </label>
+                                    <input class='form-control' type='text' name='address2'>
+                                    <label for="admin">Administrador: </label>
+                                    <input class='form-control' type='text' name='admin'><br>
+                                    <button type='submit' class='btn btn-danger'>Modificar usuario</button>
+                                </form><br>
+                            </div>
+                        </div>
+                            <% } %>
+                        <% } %>
+                        <% }else{ %>
+                            <jsp:forward page="errorView.jsp"> 
+                            <jsp:param name="error" value="No eres administrador." /> 
+                            </jsp:forward> 
+                        <% } %>
+                <% }else{ %>
+                    <jsp:forward page="errorView.jsp"> 
+                    <jsp:param name="error" value="No estas identificado." /> 
+                    </jsp:forward> 
                 <% } %>
-                    <% } %>
             </div>
         </div>
         <script src='js/jquery.js'></script>
