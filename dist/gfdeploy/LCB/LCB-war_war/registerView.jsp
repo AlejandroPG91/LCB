@@ -49,7 +49,7 @@
                             <label for='address2'>Dirección:</label>
                             <input class='form-control' type='text' name='address2'><br>
 
-                            <button  type='submit' class='btn btn-default'>Registrarme</button>
+                            <button  type='submit' class='btn btn-success'>Registrarme</button>
                         </form>
                         <% }else{ %>
 

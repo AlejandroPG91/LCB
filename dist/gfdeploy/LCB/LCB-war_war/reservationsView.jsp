@@ -1,3 +1,4 @@
+<%@page import="entity.Client"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
@@ -25,34 +26,49 @@
             <div class="row" style="margin-top: 30px;">
                 <h2>Mis reservas</h2>
             </div>
-    <%
-        List <Reservation> userReservations = (List) request.getAttribute("userReservations");
-        if (userReservations.size() == 0) { %>
-        <div class="row"><p> No ha realizado reservas </p></div>
-    <%  } else { %>
-    <div class="table-responsive row" style="margin-top: 20px;">
-            <table class="table table-sm">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th class="text-center">Título</th>
-                        <th class="text-center">Fecha de reserva</th>
-                    </tr>
-                </thead>
-                <tbody>
-    <%      for (Reservation reservation : userReservations) { %>
-            
-<%              Date today = reservation.getReservationdate();
-                SimpleDateFormat formatter;
-                formatter = new SimpleDateFormat("dd.MM.yy"); %>
-                <tr>
-                    <td class="text-center"><% out.println(reservation.getBook()); %></td>
-                    <td class="text-center"><% out.println(formatter.format(today)); %></td>
-                </tr>
-        <%  } %>
-                </tbody>
-            </table>
-        </div>
-    <%  } %>
+            <% Client client = (Client) session.getAttribute("client"); %>
+            <% if(client != null){ %>
+                <%
+                    List <Reservation> userReservations = (List) request.getAttribute("userReservations");
+                    if(userReservations != null){
+                        if (userReservations.size() == 0) { %>
+                            <jsp:forward page="errorView.jsp"> 
+                            <jsp:param name="error" value="No ha realizado reservas." /> 
+                            </jsp:forward> 
+                    <%  } else { %>
+                    <div class="table-responsive row" style="margin-top: 20px;">
+                            <table class="table table-sm">
+                                <thead class="thead-inverse">
+                                    <tr>
+                                        <th class="text-center">Título</th>
+                                        <th class="text-center">Fecha de reserva</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    <%      for (Reservation reservation : userReservations) { %>
+
+                <%              Date today = reservation.getReservationdate();
+                                SimpleDateFormat formatter;
+                                formatter = new SimpleDateFormat("dd.MM.yy"); %>
+                                <tr>
+                                    <td class="text-center"><% out.println(reservation.getBook()); %></td>
+                                    <td class="text-center"><% out.println(formatter.format(today)); %></td>
+                                </tr>
+                        <%  } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <%  } %>
+                    <% }else{ %>
+                        <jsp:forward page="errorView.jsp"> 
+                        <jsp:param name="error" value="Error al obtener las reservas." /> 
+                        </jsp:forward> 
+                    <% } %>
+            <% }else{ %>
+                    <jsp:forward page="errorView.jsp"> 
+                    <jsp:param name="error" value="No estas identificado." /> 
+                    </jsp:forward> 
+            <% } %>
         </div>
     </body>
 </html>

@@ -30,7 +30,7 @@
                         <h3>Libros reservados: </h3>
                         <% 
                             List <Reservation> reservationList = (List) session.getAttribute("userReservations");
-                            if (reservationList !=  null || reservationList.size() > 0) {
+                            if (reservationList !=  null && reservationList.size() > 0) {
                                 for (Reservation reservation : reservationList){
                         %>
                             <div class='reservations wrapper'>
@@ -38,10 +38,16 @@
                                 <p> <% out.print(reservation.getUsername()); %> </p>
                             </div>
                         <%      }   %>
-                        <%  }
+                        <%  }else { %>
+                            <jsp:forward page="errorView.jsp"> 
+                            <jsp:param name="error" value="Error al obtener los libros reservados." /> 
+                            </jsp:forward>
+                        <% } %>
 
-                    } else {  %>
-                    <h1>Inicie sesión para realizar una reserva</h1>
+                    <% } else {  %>
+                        <jsp:forward page="errorView.jsp"> 
+                        <jsp:param name="error" value="No estas identificado." /> 
+                        </jsp:forward> 
                     <%
                     }
                     %>
