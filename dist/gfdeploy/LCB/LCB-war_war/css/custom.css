@@ -50,3 +50,7 @@ img {
 .bookDescription {
     text-align: center;
 }
+
+.details * {
+    font-size: 20px;
+}
