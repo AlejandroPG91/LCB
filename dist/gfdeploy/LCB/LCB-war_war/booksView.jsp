@@ -20,7 +20,7 @@
         <link href="css/custom.css" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name='viewport' content='width-device-width, initial-scale=1.0'>
-        <title>Welcome to Leaky Cauldron Bookstore!</title>
+        <title>Nuestros Productos</title>
     </head>
     <body>
         <div class='container-fluid'>
@@ -32,50 +32,7 @@
                     <h1><a href='FrontControllerServlet'> Leaky Cauldron Bookstore</a></h1>
                 </div>
             </div>
-            <div class='row'>
-                <div class='col-lg-4'>
-                    <% Client client = (Client)session.getAttribute("client");
-                    if(client != null && client.getIsadmin() == 1){ %>
-                        <a class='btn btn-danger' href='adminView.jsp'>Administrar Base de Datos</a>
-                    <% }
-                    if(session.getAttribute("session") == null){ %>
-                        <a class='btn btn-danger btn-sm' href='registerView.jsp'> Regístrate!</a>
-                    <% } %>
-                </div>
-            </div>
-            <div class='row center-block'>
-                <div class='col-lg-5'>
-                    <form action='FrontControllerServlet' class='form-horizontal' role='form'>
-                        <input type='hidden' value='SearchCommand' name='command'>
-                        <label for="search">Buscar: </label>
-                        <input class='form-control' type='text' name='search' required><br>
-                        <label for="select">Filtro: </label>
-                        <select name="select" class='form-control'>
-                            <option selected="selected" value="0">Título</option>
-                            <option value="1">Autor</option>
-                            <option value="2">Categoría</option>
-                        </select>
-                        <button type='submit' class='btn btn-default'>Buscar</button>
-                    </form>
-                </div>
-                <% if (client != null) { %>
-                <div class='col-lg-1 pull-right'>
-                    <% ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); %>
-                    <p> Carrito: <% out.print(cart.getCart().size()); %> productos</p>
-                    <form action='FrontControllerServlet' class='form-horizontal' role='form'>
-                        <input type='hidden' value='ShowStarredCommand' name='command'>
-                        <button type='submit' class='btn btn-default'>Favoritos</button>
-                    </form>
-                    <form action='FrontControllerServlet' class='form-horizontal' role='form'>
-                        <input type='hidden' value='ShowCartCommand' name='command'>
-                        <button type='submit' class='btn btn-default'>Ver Carrito</button>
-                    </form>
-                    <form action='FrontControllerServlet' class='form-horizontal' role='form'>
-                        <input type='hidden' value='ShowReservationsCommand' name='command'>
-                        <button type='submit' class='btn btn-default'>Ver Reservas</button>
-                    </form>
-                </div>
-                <% } %>
+            
             </div>
             <div class='container row-fluid center-block'>
                 <% ArrayList<Book> books = (ArrayList) session.getAttribute("books");
@@ -121,6 +78,7 @@
                                 <% } %>
                             </div>
                         </div>
+                        <% Client client = (Client)session.getAttribute("client");%>
                         <% if (client != null) { %>
                         <div class='row center-block'>
                             <div class="col-sm-12">

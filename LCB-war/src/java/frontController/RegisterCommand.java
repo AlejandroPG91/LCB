@@ -45,7 +45,7 @@ public class RegisterCommand extends FrontCommand{
                 session.setAttribute("session", "Error al autentificarse.");
             }
             request.setAttribute("clients", list);
-            forward("/loginView.jsp");
+            forward("/indexView.jsp");
         } catch (NamingException ex) {
             System.out.println("NOPE");
         } catch (ServletException | IOException ex) {

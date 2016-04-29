@@ -99,7 +99,7 @@
                     </ul>
                     
                     <ul class="nav navbar-nav">
-                        <form action='FrontControllerServlet' class="navbar-form" role="search">
+                        <form action='FrontControllerServlet' class="navbar-form" method='POST' role="search">
                             <input type='hidden' value='SearchCommand' name='command'>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Buscar" name="search" required>
@@ -113,6 +113,13 @@
                                 <option value="2">Categoría</option>
                             </select>
                         </form>
+                    </ul>
+                    
+                    <ul class="nav navbar-nav" style="padding-top: 8px">
+                        <% Client client = (Client) session.getAttribute("client");
+                            if(client != null && client.getIsadmin() == 1){ %>
+                                <a class='btn btn-danger' href='adminView.jsp'>Administrar Base de Datos</a>
+                        <% } %>
                         
                     </ul>
                     
@@ -129,10 +136,21 @@
                             <ul class="dropdown-menu" role="menu">
                                 <a href='profileView.jsp'>Perfil</a>
                                 <li class="divider"></li>
-                                    <form method='post' action='FrontControllerServlet'>
+                                <form action='FrontControllerServlet' class='form-horizontal' method='POST' role='form'>
+                                    <input type='hidden' value='ShowStarredCommand' name='command'>
+                                    <button class="submitLink" type='submit' class='btn btn-default'>Favoritos</button>
+                                </form>
+                                
+                                <li class="divider"></li>
+                                    <form method='post' action='FrontControllerServlet' role='form'>
                                         <input type='hidden' value='AddShoppingCommand' name='command'>
                                         <input class="submitLink" type='submit' name='compras' value="Mis compras">
                                     </form>
+                                <li class="divider"></li>
+                                <form action='FrontControllerServlet' class='form-horizontal' method='POST' role='form'>
+                                    <input type='hidden' value='ShowReservationsCommand' name='command'>
+                                    <button class='submitLink' type='submit'>Mis Reservas</button>
+                                </form>
                                 <li class="divider"></li>
                                     <form method='post' action='FrontControllerServlet' class='form-horizontal' role='form'>
                                         <input type='hidden' value='LogOutCommand' name='command'>
@@ -141,32 +159,14 @@
                                 <% } %>
                             </ul>
                         </li>
-                        <!--<li><a href="#">Ver carrito <span class="glyphicon glyphicon-shopping-cart"></span></a></li>-->
                         <li class="dropdown">
                             <% if(session.getAttribute("session") != null) { %>
                                 <% ShoppingCart cart = (ShoppingCart) session.getAttribute("cart"); %>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> <% out.print(cart.getCart().size()); %> productos<span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <span class="item">
-                                        <span class="item-left">
-                                            <img src="covers/as.jpg" alt="" />
-                                            <span class="item-info">
-                                                <span>Item name</span>
-                                                <span>23$</span>
-                                            </span>
-                                        </span>
-                                        <span class="item-right">
-                                            <button class="btn btn-xs btn-danger pull-right">x</button>
-                                        </span>
-                                    </span>
-                                    <li class="divider"></li>
-                                    <li><a class="text-center" href="showCartView.jsp">Ver Carrito</a></li>
-                                </ul>
+                                <a href="FrontControllerServlet?command=ShowCartCommand" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> <% out.print(cart.getCart().size()); %></a>
                             <% } %>
-
                         </li>
                     </ul>
-                </div><!-- /.nav-collapse -->
+                </div>
             </nav>
         </div>
         <script src='js/jquery.js'></script>
