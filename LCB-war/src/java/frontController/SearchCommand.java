@@ -32,23 +32,43 @@ public class SearchCommand extends FrontCommand {
         try {
             List<Book> list = new ArrayList<>();
             HttpSession session = request.getSession();
-
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("LCB-ejbPU");
             EntityManager em = emf.createEntityManager();
-            
-            String search = getParameter("search").toLowerCase();
-            String query = "SELECT b FROM Book b WHERE LOWER(b."+getTypeOfSearch()+") LIKE :search";
-            List<Book> searchList = em.createQuery(query).setParameter("search", "%"+search+"%").getResultList();
-            if(!searchList.isEmpty()){
-                for (Book book : searchList) {
-                    list.add(book);
+
+            if(request.getParameter("genero") != null){                
+
+                String search = getParameter("genero").toLowerCase();
+                String query = "SELECT b FROM Book b WHERE LOWER(b.category) LIKE :search";
+                List<Book> searchList = em.createQuery(query).setParameter("search", "%"+search+"%").getResultList();
+                if(!searchList.isEmpty()){
+                    for (Book book : searchList) {
+                        list.add(book);
+                    }
+                    session.setAttribute("searchResult", list);
+                }else{
+                    session.setAttribute("searchResult", null);
                 }
-                session.setAttribute("searchResult", list);
+                em.close();
+                
+                forward("/searchView.jsp");
+
             }else{
-                session.setAttribute("searchResult", null);
+
+                String search = getParameter("search").toLowerCase();
+                String query = "SELECT b FROM Book b WHERE LOWER(b."+getTypeOfSearch()+") LIKE :search";
+                List<Book> searchList = em.createQuery(query).setParameter("search", "%"+search+"%").getResultList();
+                if(!searchList.isEmpty()){
+                    for (Book book : searchList) {
+                        list.add(book);
+                    }
+                    session.setAttribute("searchResult", list);
+                }else{
+                    session.setAttribute("searchResult", null);
+                }
+                em.close();
+                forward("/searchView.jsp");
             }
-            em.close();
-            forward("/searchView.jsp");
+            
         } catch (ServletException | IOException ex) {
             Logger.getLogger(SearchCommand.class.getName()).log(Level.SEVERE, null, ex);
         }

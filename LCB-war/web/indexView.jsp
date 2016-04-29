@@ -45,12 +45,15 @@
                             <ul class="dropdown-menu mega-dropdown-menu">
                                 <li class="col-sm-3">
                                     <ul>
+                                        <form action='FrontControllerServlet' method='POST' role='form'>
                                         <li class="dropdown-header">Géneros</li>
-                                        <li><a href="#">Juvenil</a></li>
-                                        <li><a href="#">Infantil</a></li>
-                                        <li><a href="#">Fantasía</a></li>
-                                        <li><a href="#">Aventuras</a></li>
-                                        <li><a href="#">Ciencia Ficción</a></li>
+                                        <li><input type='submit' class='submitLink' value='Juvenil' name='genero'/></li>
+                                            <li><input type='submit' class='submitLink' value='Infantil' name='genero'/></li>
+                                            <li><input type='submit' class='submitLink' value='Fantasía' name='genero'/></li>
+                                            <li><input type='submit' class='submitLink' value='Aventuras' name='genero'/></li>
+                                            <li><input type='submit' class='submitLink' value='Ciencia Ficción' name='genero'/></li>
+                                            <input type='hidden' value='SearchCommand' name='command'/>
+                                        </form>
                                     </ul>
                                 </li>
                                 <li class="col-sm-3">
